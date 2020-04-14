@@ -1,0 +1,35 @@
+version: '3.6'
+
+networks:
+  delivery-network:
+    driver: bridge
+
+services:
+  delivery-api:
+    build: .
+    volumes:
+      - .:/home/node/api
+    environment:
+      - REDIS_URL=delivery-redis
+    depends_on:
+      - delivery-redis
+    networks:
+      - delivery-network
+    links:
+      - delivery-redis
+    container_name: delivery-api
+    command: yarn dev
+    ports:
+      - 3333:3333
+
+  delivery-redis:
+    image: bitnami/redis:latest
+    container_name: delivery-redis
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_PASSWORD=${REDIS_PASS}
+    volumes:
+      - /tmp/redis:/bitnami/redis/data
+    networks:
+      - delivery-network
