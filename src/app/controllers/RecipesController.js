@@ -1,15 +1,15 @@
 import RecipesServices from '../services/RecipesServices';
-import { mountRecipesList, getKeyWords } from '../utils/recipes';
+import { mountRecipesList, getIngredientsKeyWords } from '../utils/recipes';
 
 class RecipesController {
   constructor() {
     this.recipesService = new RecipesServices();
   }
 
-  listRecipes = async (request, response) => {
-    const { i } = request.query;
-    const keywords = getKeyWords(i);
-    const recipesFound = await this.recipesService.getRecipes(i);
+  list = async (request, response) => {
+    const { i: ingredient } = request.query;
+    const keywords = getIngredientsKeyWords(ingredient);
+    const recipesFound = await this.recipesService.getRecipes(ingredient);
     const recipesWithGiphys = await this.recipesService.getRecipes(
       recipesFound
     );

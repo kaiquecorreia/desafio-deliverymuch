@@ -1,7 +1,7 @@
 ### Node ###
 yarn-debug.log*
 yarn-error.log*
-
+yarn.lock
 # Coverage directory used by tools like istanbul
 coverage
 
