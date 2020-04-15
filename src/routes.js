@@ -1,8 +1,8 @@
 import { Router } from 'express';
+import RecipesController from './app/controllers/RecipesController';
+
 const routes = new Router();
 
-routes.get('/recipes', (req, res) => {
-  return res.json({ message: 'Delivery Much' });
-});
+routes.get('/recipes', RecipesController.listRecipes);
 
 export default routes;
