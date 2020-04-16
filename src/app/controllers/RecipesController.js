@@ -1,9 +1,10 @@
 import RecipesServices from '../services/RecipesServices';
+import GiphyServices from '../services/GiphyServices';
 import { getIngredientsKeyWords } from '../utils/recipes';
 import ErrorHandler from '../error/ErrorHandler';
 class RecipesController {
   constructor() {
-    this.recipesService = new RecipesServices();
+    this.recipesService = new RecipesServices(GiphyServices);
   }
 
   list = async (request, response) => {

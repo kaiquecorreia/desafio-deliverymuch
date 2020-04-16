@@ -30,7 +30,7 @@ export const mountRecipesList = async (recipe, giphyServices) => {
   };
 };
 
-const getArrayOfIngredients = (ingredients) => {
+export const getArrayOfIngredients = (ingredients) => {
   return ingredients
     .split(',')
     .map((item) => item.trim())

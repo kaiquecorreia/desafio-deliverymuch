@@ -24,3 +24,10 @@ export const mockEmptyRecipeList = {
   href: 'http://www.recipepuppy.com/',
   results: [],
 };
+
+export const oneRecipe = {
+  title: 'Creamy Scrambled Eggs Recipe Recipe',
+  href: 'http://www.grouprecipes.com/43522/creamy-scrambled-eggs-recipe.html',
+  ingredients: 'onions,tomato',
+  thumbnail: 'http://img.recipepuppy.com/373064.jpg',
+};

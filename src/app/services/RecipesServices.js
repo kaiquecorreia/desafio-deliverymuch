@@ -10,10 +10,11 @@ export const RECIPEPUPPY_API_OFFLINE =
 export const GIPHY_API_OFFLINE = 'GIPHY API is offline or with errors.';
 
 export default class RecipesService {
-  constructor() {
+  constructor(GiphyServices) {
     this.recipePuppyApiUrl = process.env.RECIPEPUPPY_URL;
     this.recipeGiphyUrl = process.env.GIPHY_URL;
     this.giphyApiKey = process.env.GIPHY_API_KEY;
+    this.giphyServices = new GiphyServices();
   }
   getRecipes = async (ingredients) => {
     try {
@@ -37,18 +38,14 @@ export default class RecipesService {
 
   getRecipesWithGif = async (recipes) => {
     try {
-      const giphyServices = new GiphyServices();
-
-      const statusGiphy = await giphyServices.verifyGihpyServiceIsOn();
-
+      const statusGiphy = await this.giphyServices.verifyGihpyServiceIsOn();
       if (!statusGiphy) {
         return ErrorHandler.mountError(
-          giphyServices.errorMessage || GIPHY_API_OFFLINE
+          this.giphyServices.errorMessage || GIPHY_API_OFFLINE
         );
       }
-
       const recipeWithGif = Promise.all(
-        recipes.map((recipe) => mountRecipesList(recipe, giphyServices))
+        recipes.map((recipe) => mountRecipesList(recipe, this.giphyServices))
       );
       return recipeWithGif;
     } catch (error) {
