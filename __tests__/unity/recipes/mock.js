@@ -31,3 +31,15 @@ export const oneRecipe = {
   ingredients: 'onions,tomato',
   thumbnail: 'http://img.recipepuppy.com/373064.jpg',
 };
+
+export const mockGiphyResponse = {
+  data: {
+    data: [
+      {
+        images: {
+          original: { url: 'test.gif' },
+        },
+      },
+    ],
+  },
+};
