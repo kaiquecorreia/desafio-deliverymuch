@@ -1,5 +1,5 @@
 import axios from 'axios';
-const sinon = require('sinon');
+import sinon from 'sinon';
 import {
   mockRecipeList,
   mockEmptyRecipeList,
@@ -23,9 +23,7 @@ import GiphyServices, {
   GIF_DEFAULT,
 } from '../../../src/app/services/GiphyServices';
 
-import RecipesController from '../../../src/app/controllers/RecipesController';
-
-describe('Recipes', () => {
+describe('Unity Tests Recipes', () => {
   describe('Recipes Utils', () => {
     it('should return error to empty params', () => {
       const ingredientsParams = '';
@@ -164,6 +162,7 @@ describe('Recipes', () => {
       expect(recipeList).toHaveProperty('error');
       getRecipesFn.restore();
     });
+
     it('should recipes with gif return try catch error', async () => {
       const recipeService = new RecipesServices(GiphyServices);
 
@@ -196,6 +195,7 @@ describe('Recipes', () => {
       getGifFn.restore();
     });
   });
+
   describe('Giphy Services', () => {
     it('should return gif default', async () => {
       const giphyServices = new GiphyServices();

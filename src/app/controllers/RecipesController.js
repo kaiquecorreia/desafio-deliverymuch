@@ -9,6 +9,7 @@ class RecipesController {
 
   list = async (request, response) => {
     const { i: ingredient } = request.query;
+
     const keywords = getIngredientsKeyWords(ingredient);
 
     if (ErrorHandler.hasError(keywords)) {
@@ -20,7 +21,6 @@ class RecipesController {
     if (ErrorHandler.hasError(recipesFound)) {
       return ErrorHandler.responseError(response, recipesFound);
     }
-
     const recipesWithGiphys = await this.recipesService.getRecipesWithGif(
       recipesFound
     );
