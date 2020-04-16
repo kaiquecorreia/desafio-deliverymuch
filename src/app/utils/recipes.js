@@ -8,10 +8,7 @@ export const getIngredientsKeyWords = (ingredients) => {
     return ErrorHandler.mountError(EMPTY_PARAMS);
   }
 
-  const keywords = ingredients
-    .split(',')
-    .map((item) => item.trim())
-    .filter((item) => item);
+  const keywords = getArrayOfIngredients(ingredients);
 
   if (!keywords.length) {
     return ErrorHandler.mountError(EMPTY_PARAMS);
@@ -19,6 +16,24 @@ export const getIngredientsKeyWords = (ingredients) => {
   return keywords.length > 3 ? ErrorHandler.mountError(MAXKEYWORDS) : keywords;
 };
 
-export const mountRecipesList = () => {
-  return [];
+export const mountRecipesList = async (recipe, giphyServices) => {
+  const { title, ingredients: ingredientsString, href: link } = recipe;
+  const gif = await giphyServices.getGifUrl(title);
+
+  const ingredients = getArrayOfIngredients(ingredientsString);
+
+  return {
+    title,
+    link,
+    ingredients,
+    gif,
+  };
+};
+
+export const getArrayOfIngredients = (ingredients) => {
+  return ingredients
+    .split(',')
+    .map((item) => item.trim())
+    .filter((item) => item)
+    .sort();
 };

@@ -1,9 +1,10 @@
 import RecipesServices from '../services/RecipesServices';
-import { mountRecipesList, getIngredientsKeyWords } from '../utils/recipes';
+import GiphyServices from '../services/GiphyServices';
+import { getIngredientsKeyWords } from '../utils/recipes';
 import ErrorHandler from '../error/ErrorHandler';
 class RecipesController {
   constructor() {
-    this.recipesService = new RecipesServices();
+    this.recipesService = new RecipesServices(GiphyServices);
   }
 
   list = async (request, response) => {
@@ -20,9 +21,15 @@ class RecipesController {
       return ErrorHandler.responseError(response, recipesFound);
     }
 
-    const recipesWithGiphys = await this.recipesService.getGiphy(recipesFound);
+    const recipesWithGiphys = await this.recipesService.getRecipesWithGif(
+      recipesFound
+    );
 
-    return response.status(200).json({ keywords, recipesFound });
+    if (ErrorHandler.hasError(recipesWithGiphys)) {
+      return ErrorHandler.responseError(response, recipesWithGiphys);
+    }
+
+    return response.status(200).json({ keywords, recipes: recipesWithGiphys });
   };
 }
 
