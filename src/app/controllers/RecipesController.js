@@ -15,11 +15,14 @@ class RecipesController {
     }
 
     const recipesFound = await this.recipesService.getRecipes(ingredient);
-    const recipesWithGiphys = await this.recipesService.getRecipes(
-      recipesFound
-    );
-    const recipes = mountRecipesList(recipesWithGiphys);
-    return response.status(200).json({ keywords, recipes });
+
+    if (ErrorHandler.hasError(recipesFound)) {
+      return ErrorHandler.responseError(response, recipesFound);
+    }
+
+    const recipesWithGiphys = await this.recipesService.getGiphy(recipesFound);
+
+    return response.status(200).json({ keywords, recipesFound });
   };
 }
 
