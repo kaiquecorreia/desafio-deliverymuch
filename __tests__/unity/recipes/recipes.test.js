@@ -1,6 +1,12 @@
 import axios from 'axios';
 const sinon = require('sinon');
-import { mockRecipeList, mockEmptyRecipeList, oneRecipe } from './mock';
+import {
+  mockRecipeList,
+  mockEmptyRecipeList,
+  oneRecipe,
+  mockGiphyResponse,
+} from './mock';
+
 import {
   getIngredientsKeyWords,
   getArrayOfIngredients,
@@ -13,7 +19,11 @@ import RecipesServices, {
   EMPTY_RECIPESLIST,
   RECIPEPUPPY_API_OFFLINE,
 } from '../../../src/app/services/RecipesServices';
-import GiphyServices from '../../../src/app/services/GiphyServices';
+import GiphyServices, {
+  GIF_DEFAULT,
+} from '../../../src/app/services/GiphyServices';
+
+import RecipesController from '../../../src/app/controllers/RecipesController';
 
 describe('Recipes', () => {
   describe('Recipes Utils', () => {
@@ -78,7 +88,7 @@ describe('Recipes', () => {
     });
   });
 
-  describe('Recipes Service', () => {
+  describe('Recipes Services', () => {
     it('should return error offline api ', async () => {
       const ingredients = 'onions';
       const recipeService = new RecipesServices(GiphyServices);
@@ -159,7 +169,7 @@ describe('Recipes', () => {
 
       const getRecipesFn = sinon
         .stub(recipeService.giphyServices, 'verifyGihpyServiceIsOn')
-        .throws('Er');
+        .throws('Error');
 
       const recipeList = await recipeService.getRecipesWithGif(mockRecipeList);
 
@@ -184,6 +194,39 @@ describe('Recipes', () => {
       expect(typeof recipeList === 'object').toBeTruthy();
       verifyGihpyServiceIsOnFn.restore();
       getGifFn.restore();
+    });
+  });
+  describe('Giphy Services', () => {
+    it('should return gif default', async () => {
+      const giphyServices = new GiphyServices();
+      const getAxiosGetFn = sinon.stub(axios, 'get').throws(new Error('Error'));
+
+      const url = await giphyServices.getGifUrl('teste');
+      expect(url).toBe(GIF_DEFAULT);
+      getAxiosGetFn.restore();
+
+      const getAxiosGetWithResultFn = sinon
+        .stub(axios, 'get')
+        .resolves({ data: false });
+
+      const urlWithResult = await giphyServices.getGifUrl('teste');
+      expect(urlWithResult).toBe(GIF_DEFAULT);
+
+      getAxiosGetWithResultFn.restore();
+    });
+    it('should return gif url', async () => {
+      const giphyServices = new GiphyServices();
+
+      const getAxiosGetWithResultFn = sinon
+        .stub(axios, 'get')
+        .resolves(mockGiphyResponse);
+
+      const urlWithResult = await giphyServices.getGifUrl('teste');
+
+      expect(typeof urlWithResult === 'string').toBeTruthy();
+      expect(urlWithResult).toBe('test.gif');
+
+      getAxiosGetWithResultFn.restore();
     });
   });
 });
