@@ -18,7 +18,9 @@ Test for Delivery Much
 ## Instalação
 
 - No terminal acesse uma pasta de preferência e clone o repositório do test:
-  git clone https://github.com/kaiquecorreia/desafio-deliverymuch.git
+
+git clone https://github.com/kaiquecorreia/desafio-deliverymuch.git
+
 - Acesse a pasta do repositório: cd desafio-deliverymuch
 - Rode o comando: yarn(Recomendado) ou npm install
 - Rode o comando: docker-compose up -d; Obs: No windows o docker pode pedir permissões de acesso, caso aconteça de as permissões e caso não esteja funcionando exclua os containers e rode o comando novamente.
@@ -53,7 +55,9 @@ Test for Delivery Much
 ## Instalação
 
 - No terminal acesse uma pasta de preferência e clone o repositório do test:
-  git clone https://github.com/kaiquecorreia/desafio-deliverymuch.git
+
+git clone https://github.com/kaiquecorreia/desafio-deliverymuch.git
+
 - Acesse a pasta do repositório: cd desafio-deliverymuch
 - Rode o comando: yarn(Recomendado) ou npm install
 - Agora acesse o arquivo "pastadoprojeto"/src/app/config/redis.js, e edite as configurações conforme o seu redis instalado no seu ambiente.
