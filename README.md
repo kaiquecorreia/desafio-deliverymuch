@@ -23,7 +23,7 @@ git clone https://github.com/kaiquecorreia/desafio-deliverymuch.git
 
 - Acesse a pasta do repositório: cd desafio-deliverymuch
 - Rode o comando: yarn(Recomendado) ou npm install
-- Rode o comando: docker-compose up -d; Obs: No windows o docker pode pedir permissões de acesso, caso aconteça de as permissões e caso não esteja funcionando exclua os containers e rode o comando novamente.
+- Rode o comando: docker-compose up -d; Obs: No windows o docker pode pedir permissões de acesso, caso aconteça, dê as permissões e caso não esteja funcionando exclua os containers e rode o comando novamente.
 
 - Seu ambiente deve estar funcionado a partir de agora! 😁
 
