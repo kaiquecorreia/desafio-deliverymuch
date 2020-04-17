@@ -81,7 +81,7 @@ git clone https://github.com/kaiquecorreia/desafio-deliverymuch.git
 - Foi utilizado o redis para fazer um cache temporário nas requisições e melhorar o tempo de resposta da api.
 - Foram feitos testes unitários e teste de integração.
 - O teste de integração verifica se o controller está funcionando corretamente e acessa diretamente as API's utilizadas no projeto. Caso tenha algum problema na api como ficar sem internet o teste de integração irá retornar um erro.
-
+- O Redis não está sendo coberto pelos testes.
 # Autor
 
 - Kaique Correia.
